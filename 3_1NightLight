@@ -1,0 +1,26 @@
+int light_sensor = 0;
+int redLed1 = 1;
+
+
+void setup() {
+   Serial.begin(9600); 
+   pinMode(redLed, OUTPUT);
+}
+
+void loop() {
+  //1. Find range of light sensor
+  /*
+  Serial.println(light_sensor);
+  delay(500);
+  //run this code and place hand over the light sensor to find the range!
+  */
+  
+  //2. Create LED array
+  int light_sensor_value = analogRead(light_sensor);
+  // more and more Led's turn on!!
+  //use if statements just in case they fall below set min or max
+  light_sensor_value = constrain(val, "max", "min");
+  int brightness = map(light_sensor_val, "max", "min", 255,0);
+  analogWrite(redLed1, brightness); 
+ 
+}

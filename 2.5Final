@@ -1,0 +1,128 @@
+*/ Light show!
+This code goes through 3 different lighting effects and toggles through them as the button is pressed
+/*
+
+int boardLED = 13;
+int blueLed = 10;
+int redLed = 11;
+int greenLed = 12; 
+
+int button = 8;
+boolean last_state = LOW; //button states
+boolean current_state = LOW; //button states
+
+boolean led_state = LOW; //boardLED
+boolean green_state = LOW; 
+boolean red_state = LOW;
+boolean blue_state = LOW;
+
+int lightDisplayCount = 0;
+
+
+void setup() //set BoardLED to output
+
+{
+  pinMode(boardLED, OUTPUT);
+  pinMode(redLed, OUTPUT);
+  pinMode(blueLed, OUTPUT);
+  pinMode(greenLed, OUTPUT);
+  pinMode(button, INPUT);
+}
+
+boolean debounce (boolean button_state) 
+{
+  boolean current = digitalRead(button);
+  if (button_state != current) // switch changed states
+  {
+    delay(5); // 5 miliseconds delay
+    current = digitalRead(button); //debounced value
+  }
+  return current;
+    
+}
+
+void light(int lightDisplay)
+{
+  if (lightDisplay == 1)
+  {
+    digitalWrite(redLed, HIGH);
+    digitalWrite(blueLed, HIGH);
+    digitalWrite(greenLed, HIGH);
+    delay(500);
+    digitalWrite(redLed, LOW);
+    digitalWrite(blueLed, LOW);
+    digitalWrite(greenLed, LOW);
+    delay(500);
+    digitalWrite(redLed, HIGH);
+    digitalWrite(blueLed, HIGH);
+    digitalWrite(greenLed, HIGH);
+    delay(500);
+    digitalWrite(redLed, LOW);
+    digitalWrite(blueLed, LOW);
+    digitalWrite(greenLed, LOW);
+  }
+  else if (lightDisplay == 3)
+  {
+    digitalWrite(redLed,LOW);
+    digitalWrite(greenLed, LOW);
+    digitalWrite(blueLed, HIGH);
+    delay(500);
+    digitalWrite(blueLed, LOW);
+    digitalWrite(redLed, HIGH);
+    delay(500);
+    digitalWrite(redLed, LOW);
+    digitalWrite(greenLed, HIGH);
+    delay(500);
+    digitalWrite(greenLed, LOW);
+    digitalWrite(redLed, HIGH);
+    delay(500);
+    digitalWrite(redLed, LOW);
+    digitalWrite(blueLed, HIGH);
+    delay(500);
+    digitalWrite(blueLed, LOW);
+  }
+  else if(lightDisplay == 2)
+  {
+    digitalWrite(redLed, LOW);
+    digitalWrite(blueLed, LOW);
+    digitalWrite(greenLed, LOW);
+    digitalWrite(redLed, HIGH);
+    delay(500);
+    digitalWrite(redLed, LOW);
+    digitalWrite(blueLed, HIGH);
+    digitalWrite(greenLed, HIGH);
+    delay(500);
+    digitalWrite(redLed, HIGH);
+    digitalWrite(blueLed, LOW);
+    digitalWrite(greenLed, LOW);
+    delay(500);
+    digitalWrite(redLed, LOW);
+    digitalWrite(blueLed, HIGH);
+    digitalWrite(greenLed, HIGH);
+    delay(500);
+    digitalWrite(redLed, LOW);
+    digitalWrite(blueLed, LOW);
+    digitalWrite(greenLed, LOW);
+  }
+  else 
+  {
+    digitalWrite(redLed, LOW);
+    digitalWrite(blueLed, LOW);
+    digitalWrite(greenLed, LOW); 
+  }
+}
+
+
+void loop()
+{
+  current_state = debounce(last_state);
+ 
+  if(last_state == LOW && current_state == HIGH) //buttons been pressed 
+  {
+    lightDisplayCount++;
+    light(lightDisplayCount);
+    if(lightDisplayCount == 3) lightDisplayCount = 0;
+  }
+  
+  last_state = current_state; //imporant to always set this
+}

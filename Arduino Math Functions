@@ -1,0 +1,33 @@
+//Started a file with basic mathematics formulas for Arduino
+//Currently incomplete but just put it up til I finish it!
+
+Arduino Math Formulas:
+
+myValue += 1; //increment by 1
+
+int myValue = 20 % 10; //remainder = 0, myValue = 0;
+int myValue = 21 % 10; // remainder =1, myValue = 1;
+
+//Find absolute value
+int x = -1;
+int y = abs(x); //y=1
+
+//constraining a value into a range
+//min < x < max
+constrain(x, min, max);
+
+//Find min and max values
+
+int minOfXAndY = min(x,y);
+int maxOfXAndY = max(x,y);
+
+//number to a power
+pow(x,y); //x^
+
+//square root
+sqrt(x);
+
+//Generating Random Numbers
+random(max); creates a random number from 0 to max
+random(min,max); random number for min to max
+

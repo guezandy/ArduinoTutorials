@@ -1,0 +1,80 @@
+SERVOS!
+
+/*
+Using Servos:
+we are using this servo: https://www.sparkfun.com/products/9064
+
+what makes this servo interesting is that we can make it go foward backwards 
+or simply control the angle it rotates.
+
+1. Brown = ground ->GND Pin
+2. red = power -> 5V pin
+3. orange  = control -> Digital PWM pin on Arduino (~ <- symbol)
+
+Turning servo
+0 degrees = 1 ms pulse
+180 degrees = 2ms pulse
+90 degrees = 1.5ms pulse
+
+
+NOTE 1: This servos only turn 180 degrees so its not advised to give it a pulse
+longer than 2ms as the shaft will hit internal stops (make a noise) and waste a
+significant amount of power shortening the life of the servo. 
+
+Note 2: Servos have a maximum speed. If your servo is acting erratically, 
+you may be trying to get it to switch from one position to another too 
+quickly (add a delay after your commands if you think this may be the problem).
+Always include a short delay between pulse around 20-50ms.
+
+To use a SERVO begin by including the Servo.h library. 
+*/
+
+
+#include<Servo.h> //include libray
+
+Servo myservo; //create servo object
+//max of 8 servos can be used at once
+int servopin = 6;
+int posit = 0; //position int, the world position can't be used!
+
+void setup()
+{
+  //initialize servo by "attaching it"
+  myservo.attach(servopin);
+}
+
+void loop()
+{
+ for(posit = 0; posit <180; posit++)
+  {
+    myservo.write(posit); //moves servo from 0 degrees to 180 degrees
+    delay(15);
+  } 
+  delay(500); //holds at 180 degrees for half a second
+ for(posit = 180; posit >=1; posit--)
+  {
+    myservo.write(posit); //moves servo from 180 to zero degrees
+    delay(15);
+  }
+  delay(500); //holds at 0 for half a second!
+}
+
+/*
+The same effect can be done by using the function writeMircosecond(us)
+double pos = 0.0;
+for(pos = 1; pos < 2; pos+=0.055)//1/180
+  {
+    servo.WriteMicrosecond(pos*1000);
+    delay(15);
+  }
+ delay(500);
+for(pos = 2; pos >1; pos-=0.55)
+  {
+     servo.WriteMircoseconds (pos*1000);
+     delay(15);
+  }
+ delay(500);
+*/
+
+//servoname.read();
+//servoname.detach();

@@ -1,0 +1,67 @@
+//this code turns on 3 LED's  when the button is pressed, then turns 
+//off the LED"s when the button is pressed again
+
+int boardLED = 13;
+int blueLed = 10;
+int redLed = 11;
+int greenLed = 12; 
+
+int button = 8;
+boolean last_state = LOW; //button states
+boolean current_state = LOW; //button states
+
+boolean led_state = LOW; //boardLED
+boolean green_state = LOW; 
+boolean red_state = LOW;
+boolean blue_state = LOW;
+
+
+void setup() //set BoardLED to output
+
+{
+  pinMode(boardLED, OUTPUT);
+  pinMode(redLed, OUTPUT);
+  pinMode(blueLed, OUTPUT);
+  pinMode(greenLed, OUTPUT);
+  pinMode(button, INPUT);
+}
+
+boolean debounce (boolean button_state) 
+{
+  boolean current = digitalRead(button);
+  if (button_state != current) // switch changed states
+  {
+    delay(5); // 5 miliseconds delay
+    current = digitalRead(button); //debounced value
+  }
+  return current;
+    
+}
+
+
+
+void loop()
+{
+  current_state = debounce(last_state);
+  /*
+  because we already did the press to switch states lets do a time delay pressing
+  */
+  if(last_state == LOW && current_state == HIGH) //buttons been pressed 
+  {
+  /*Because we've debounced the program anything we put in this loop will work once the button's been pressed!*/
+    led_state = !led_state;
+    red_state = HIGH;
+    blue_state = HIGH;
+    green_state = HIGH;
+    digitalWrite(boardLED, led_state);
+    digitalWrite(blueLed, blue_state);
+    digitalWrite(redLed, red_state);
+    digitalWrite(greenLed, green_state);
+    delay(1000);
+    digitalWrite(blueLed, LOW);
+    digitalWrite(redLed, LOW);
+    digitalWrite(greenLed, LOW);
+  }
+  last_state = current_state; //imporant to always set this
+
+}

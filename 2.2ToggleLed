@@ -1,0 +1,29 @@
+//This code should turn on your LED when you 
+
+int boardLED = 13;
+int button = 8;
+boolean state = LOW; 
+
+void setup() //set BoardLED to output
+
+{
+  pinMode(boardLED, OUTPUT);
+  pinMode(button, INPUT);
+}
+
+void loop()
+{
+  if(digitalRead(button) == HIGH && state == LOW) //button pressed and led is off
+  {
+    digitalWrite(boardLED, HIGH); // turn LED on
+    state = HIGH; //set state to high
+  }
+  else if(digitalRead(button) == HIGH && state == HIGH) // button pressed and led is currently on
+  {
+    digitalWrite(boardLED, LOW);
+    state = LOW;
+  }
+  
+  //THIS CODE SHOULD NOT WORK PROPERLY. THE ARDUINO FLOATS BETWEEN 
+  //VALUES WE NEED TO ACCOUNT FOR DEBOUNCING!!
+}

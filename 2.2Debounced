@@ -1,0 +1,52 @@
+int boardLED = 13;
+int button = 8;
+boolean last_state = LOW; 
+boolean current_state = LOW;
+boolean led_state = LOW;
+
+
+void setup() //set BoardLED to output
+
+{
+  pinMode(boardLED, OUTPUT);
+  pinMode(button, INPUT);
+}
+
+boolean debounce (boolean button_state) 
+{
+  boolean current = digitalRead(button);
+  if (button_state != current) // switch changed states
+  {
+    delay(5); // 5 miliseconds delay
+    /*
+    enough time for the switch to stop debouncing but short enough time so that 
+    the switch has stopped debouncing.
+    Arduino runs at 400,000 fps on an empty loop
+    a digitalWrite takes 25 microseconds
+    a digitalRead takes about 3 microseconds
+    */
+    current = digitalRead(button); //debounced value
+  }
+  return current;
+    
+}
+
+
+
+void loop()
+{
+  current_state = debounce(last_state);
+  
+  if(last_state == LOW && current_state == HIGH) 
+  /*
+  Remeber current button has been debounced. The change in state is a 
+  result of the pressing of the button
+  */
+  {
+    led_state = !led_state;
+    //state = HIGH; can be removed debounce function takes it into account
+  }
+  digitalWrite(boardLED, led_state);
+  last_state = current_state; //imporant to always set this
+
+}

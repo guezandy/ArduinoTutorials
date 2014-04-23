@@ -1,0 +1,24 @@
+int boardLED = 13;
+int button = 8;
+
+
+void setup() //set BoardLED to output
+
+{
+  pinMode(boardLED, OUTPUT);
+  pinMode(button, INPUT);
+}
+
+void loop()
+{
+  //digitalRead(button);
+  if(digitalRead(button) == HIGH) 
+  {
+    digitalWrite(boardLED, HIGH);
+  }
+  else
+  {
+    digitalWrite(boardLED, LOW);
+  }
+  
+}

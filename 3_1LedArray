@@ -1,0 +1,38 @@
+int potPin = 0;
+int green1 = 10;
+int green2 = 11;
+int redLed = 12;
+
+void setup()
+{
+  pinMode(potPin, INPUT);
+  pinMode(green1, OUTPUT);
+  pinMode(green2, OUTPUT);
+  pinMode(redLed, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  int potPos = map(analogRead(potPin), 0, 1023, 0 , 150);
+  Serial.println(potPos);
+  
+  if (potPos <= 50) {
+    digitalWrite(green1, HIGH);
+    digitalWrite(green2, LOW);
+    digitalWrite(redLed, LOW);
+  }
+  else if (potPos <=100) {
+    digitalWrite(green1, HIGH);
+    digitalWrite(green2, HIGH);
+    digitalWrite(redLed, LOW);
+  }
+  else if (potPin <=150) {
+    digitalWrite(green1, HIGH);
+    digitalWrite(green2, HIGH);
+    digitalWrite(redLed, HIGH);
+  }
+  else {
+    Serial.println("Error");
+  }
+}

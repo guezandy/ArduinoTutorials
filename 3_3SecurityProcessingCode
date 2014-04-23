@@ -1,0 +1,55 @@
+int light_sensor = 0;
+int IR_Sensor = 1;
+int night_light = 10;
+int redLed1 = 2;
+int redLed2 = 3;
+int redLed3 = 4;
+
+int lastDistance = 0;
+int light_threshold = 0; //todo
+int threshold = 200;
+
+
+void setup() {
+   Serial.begin(9600); 
+   pinMode(redLed1, OUTPUT);
+   pinMode(redLed2, OUTPUT);
+   pinMode(redLed3, OUTPUT);
+   pinMode(night_light, OUTPUT);
+   pinMode(IR_Sensor, INPUT);
+   pinMode(light_sensor, INPUT);
+}
+
+void loop() {
+ int light_value = analogRead(light_sensor);
+ int IR_value = analogRead(IR_Sensor);
+ 
+ //TODO make the dimmer LED work properly
+ 
+ if(light_value < light_threshold)
+ {
+   if(IR_value > lastDistance + threshold || IR_value < lastDistance - threshold)
+   {
+     digitalWrite(redLed1, HIGH);
+     digitalWrite(redLed2, HIGH);
+     digitalWrite(redLed3, HIGH);
+     delay(1000); //play with time
+     Serial.print("Warning"); //warning!
+   }
+   else {
+     digitalWrite(redLed1, LOW);
+     digitalWrite(redLed2, LOW);
+     digitalWrite(redLed3, LOW);
+     delay(1000);
+     Serial.print("ON");
+   } 
+ }
+ else
+ {
+    Serial.print("Okay"); 
+ }
+ Serial.println("."); //change to print
+ lastDistance = IR_value;
+ 
+  
+}
